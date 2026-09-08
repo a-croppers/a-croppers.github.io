@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Disclaimer | A-Cropper</title>
+
+    <meta name="description"
+        content="Disclaimer for A-Cropper, a free browser-based image cropping and editing tool.">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        :root {
+            --bg: #ffffff;
+            --surface: #f7f8fa;
+            --card: #ffffff;
+            --text: #111827;
+            --muted: #667085;
+            --border: #e5e7eb;
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --nav-bg: rgba(255, 255, 255, 0.88);
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0b0f19;
+            --surface: #111827;
+            --card: #151c2b;
+            --text: #f3f4f6;
+            --muted: #9ca3af;
+            --border: #263044;
+            --primary: #818cf8;
+            --primary-dark: #a5b4fc;
+            --nav-bg: rgba(11, 15, 25, 0.9);
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+
+            background: var(--nav-bg);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding: 14px 22px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            text-decoration: none;
+
+            color: var(--text);
+
+            font-size: 19px;
+
+            font-weight: 800;
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+
+            object-fit: contain;
+
+            border-radius: 9px;
+        }
+
+        .nav-actions {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .home-btn,
+        .theme-btn {
+            border: 1px solid var(--border);
+
+            background: var(--card);
+
+            color: var(--text);
+
+            height: 40px;
+
+            padding: 0 14px;
+
+            border-radius: 10px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            text-decoration: none;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .home-btn:hover,
+        .theme-btn:hover {
+            border-color: var(--primary);
+
+            color: var(--primary);
+
+            transform: translateY(-1px);
+        }
+
+        .theme-btn {
+            width: 40px;
+
+            padding: 0;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .disclaimer-hero {
+            max-width: 900px;
+
+            margin: auto;
+
+            padding: 75px 22px 45px;
+
+            text-align: center;
+        }
+
+        .disclaimer-hero .icon {
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            color: var(--primary);
+
+            font-size: 27px;
+        }
+
+        .disclaimer-hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+
+            line-height: 1.15;
+
+            margin-bottom: 15px;
+
+            letter-spacing: -1px;
+        }
+
+        .disclaimer-hero p {
+            color: var(--muted);
+
+            max-width: 680px;
+
+            margin: auto;
+
+            font-size: 15px;
+        }
+
+        .updated {
+            margin-top: 16px;
+
+            font-size: 12px;
+
+            color: var(--muted);
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .disclaimer-wrapper {
+            max-width: 900px;
+
+            margin: auto;
+
+            padding: 0 22px 70px;
+        }
+
+        .disclaimer-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            padding: 32px;
+
+            box-shadow: var(--shadow);
+
+            margin-bottom: 20px;
+        }
+
+        .disclaimer-card h2 {
+            font-size: 21px;
+
+            margin-bottom: 13px;
+
+            letter-spacing: -0.3px;
+        }
+
+        .disclaimer-card h3 {
+            font-size: 16px;
+
+            margin: 22px 0 8px;
+        }
+
+        .disclaimer-card p {
+            color: var(--muted);
+
+            font-size: 14px;
+
+            margin-bottom: 13px;
+        }
+
+        .disclaimer-card ul {
+            padding-left: 22px;
+
+            color: var(--muted);
+
+            font-size: 14px;
+        }
+
+        .disclaimer-card li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            border-left: 4px solid var(--primary);
+
+            background: var(--surface);
+
+            padding: 17px 18px;
+
+            border-radius: 10px;
+
+            margin: 18px 0;
+        }
+
+        .highlight p {
+            margin: 0;
+        }
+
+        a {
+            color: var(--primary);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+
+            padding: 28px 22px;
+
+            text-align: center;
+
+            background: var(--surface);
+        }
+
+        footer p {
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .nav-container {
+                padding: 12px 15px;
+            }
+
+            .brand {
+                font-size: 16px;
+            }
+
+            .brand img {
+                width: 34px;
+                height: 34px;
+            }
+
+            .home-btn {
+                width: 40px;
+
+                padding: 0;
+            }
+
+            .home-btn span {
+                display: none;
+            }
+
+            .disclaimer-hero {
+                padding: 55px 18px 35px;
+            }
+
+            .disclaimer-wrapper {
+                padding: 0 15px 50px;
+            }
+
+            .disclaimer-card {
+                padding: 23px 20px;
+
+                border-radius: 15px;
+            }
+
+            .disclaimer-card h2 {
+                font-size: 19px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="logo.png"
+                    alt="A-Cropper Logo"
+                >
+
+                <span>A-Cropper</span>
+
+            </a>
+
+
+            <div class="nav-actions">
+
+
+                <a
+                    href="index.html"
+                    class="home-btn"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    <span>Back to Home</span>
+
+                </a>
+
+
+                <button
+                    class="theme-btn"
+                    id="themeToggle"
+                    aria-label="Toggle dark and light mode"
+                >
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <header class="disclaimer-hero">
+
+
+        <div class="icon">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+        </div>
+
+
+        <h1>
+            Disclaimer
+        </h1>
+
+
+        <p>
+            Important information about the use of A-Cropper,
+            its features, image processing, third-party services,
+            and the limitations of the service.
+        </p>
+
+
+        <div class="updated">
+
+            Last Updated: September 8, 2026
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =========================
+         DISCLAIMER CONTENT
+    ========================= -->
+
+    <main class="disclaimer-wrapper">
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                1. General Disclaimer
+            </h2>
+
+
+            <p>
+                A-Cropper is provided as a free, browser-based image
+                cropping and editing utility. The information and
+                functionality provided through the website are intended
+                for general-purpose use.
+            </p>
+
+
+            <div class="highlight">
+
+                <p>
+                    <strong>
+                        Your use of A-Cropper is voluntary and at your
+                        own discretion and risk.
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <p>
+                While we aim to provide a reliable and useful tool,
+                we do not guarantee that the service will always be
+                available, uninterrupted, error-free, or suitable for
+                every particular purpose.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                2. Image Processing
+            </h2>
+
+
+            <p>
+                A-Cropper is designed to perform its core image
+                processing operations directly within your web browser.
+            </p>
+
+
+            <p>
+                These operations may include:
+            </p>
+
+
+            <ul>
+
+                <li>
+                    Image cropping
+                </li>
+
+                <li>
+                    Image resizing
+                </li>
+
+                <li>
+                    Image rotation
+                </li>
+
+                <li>
+                    Image flipping
+                </li>
+
+                <li>
+                    Shape-based cropping
+                </li>
+
+                <li>
+                    Rounded corner adjustments
+                </li>
+
+                <li>
+                    Solid background color removal
+                </li>
+
+                <li>
+                    Image exporting
+                </li>
+
+            </ul>
+
+
+            <p>
+                Processing results may vary depending on the image,
+                browser, device, image format, and settings selected
+                by the user.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                3. No Guarantee of Results
+            </h2>
+
+
+            <p>
+                Although A-Cropper is designed to produce useful image
+                editing results, we do not guarantee that every crop,
+                resize, background removal, or other operation will
+                produce the exact result expected by the user.
+            </p>
+
+
+            <p>
+                Users should review exported images before using them
+                for important, professional, commercial, or legal
+                purposes.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                4. User Responsibility
+            </h2>
+
+
+            <p>
+                You are responsible for the images and content you
+                choose to process using A-Cropper.
+            </p>
+
+
+            <p>
+                You should ensure that you have the necessary rights
+                or permissions to use, modify, reproduce, or distribute
+                any image processed through the service.
+            </p>
+
+
+            <p>
+                A-Cropper is not responsible for copyright infringement,
+                unauthorized image use, privacy violations, or other
+                issues resulting from content submitted or processed
+                by users.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                5. File Backup
+            </h2>
+
+
+            <p>
+                Users are responsible for keeping backup copies of
+                important original images and exported files.
+            </p>
+
+
+            <p>
+                A-Cropper should not be considered a permanent file
+                storage or backup service.
+            </p>
+
+
+            <div class="highlight">
+
+                <p>
+                    <strong>
+                        Always keep a copy of important original files
+                        before performing image editing operations.
+                    </strong>
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                6. Third-Party Services
+            </h2>
+
+
+            <p>
+                A-Cropper may use third-party services, libraries,
+                content delivery networks, fonts, icons, hosting
+                services, analytics tools, advertising providers,
+                or other external technologies.
+            </p>
+
+
+            <p>
+                These third-party services operate independently and
+                may have their own terms, privacy policies, and
+                practices.
+            </p>
+
+
+            <p>
+                A-Cropper does not guarantee the availability,
+                accuracy, security, or performance of third-party
+                services.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                7. Advertisements
+            </h2>
+
+
+            <p>
+                If advertisements are displayed on A-Cropper,
+                advertisements may be provided by independent
+                third-party advertising networks.
+            </p>
+
+
+            <p>
+                A-Cropper does not control the content, targeting,
+                availability, or policies of advertisements supplied
+                by third-party advertising providers.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                8. External Links
+            </h2>
+
+
+            <p>
+                A-Cropper may contain links to external websites,
+                tutorial videos, social media platforms, or other
+                resources.
+            </p>
+
+
+            <p>
+                These links are provided for convenience and
+                informational purposes only.
+            </p>
+
+
+            <p>
+                We are not responsible for the content, security,
+                availability, privacy practices, or policies of
+                external websites.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                9. No Professional Advice
+            </h2>
+
+
+            <p>
+                A-Cropper is an image editing utility and does not
+                provide legal, financial, medical, professional,
+                or other specialized advice.
+            </p>
+
+
+            <p>
+                Any information provided on or through the website
+                should not be treated as professional advice.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                10. Availability and Changes
+            </h2>
+
+
+            <p>
+                We may modify, update, suspend, or discontinue
+                any part of A-Cropper at any time without prior notice.
+            </p>
+
+
+            <p>
+                Features, supported formats, editing capabilities,
+                website design, and third-party integrations may
+                change over time.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                11. Limitation of Liability
+            </h2>
+
+
+            <p>
+                To the maximum extent permitted by applicable law,
+                A-Cropper and its operators shall not be liable for
+                any direct, indirect, incidental, special, consequential,
+                or other damages arising from or related to the use
+                or inability to use the service.
+            </p>
+
+
+            <p>
+                This may include, where permitted by law, loss of
+                files, data, business opportunities, or other losses.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                12. Acceptance of This Disclaimer
+            </h2>
+
+
+            <p>
+                By accessing or using A-Cropper, you acknowledge that
+                you have read and understood this Disclaimer and agree
+                to use the service responsibly.
+            </p>
+
+
+            <p>
+                If you do not agree with this Disclaimer, you should
+                discontinue use of A-Cropper.
+            </p>
+
+
+        </section>
+
+
+
+        <section class="disclaimer-card">
+
+
+            <h2>
+                13. Contact
+            </h2>
+
+
+            <p>
+                If you have questions, concerns, or suggestions
+                regarding this Disclaimer or A-Cropper, you can
+                contact us through the contact method provided on
+                the A-Cropper website.
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            © 2026 A-Cropper. All rights reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         THEME SCRIPT
+    ========================= -->
+
+    <script>
+
+        const themeToggle =
+            document.getElementById("themeToggle");
+
+
+        function updateThemeIcon() {
+
+            const isDark =
+                document.documentElement
+                    .getAttribute("data-theme") === "dark";
+
+
+            themeToggle.innerHTML = isDark
+
+                ? '<i class="fa-solid fa-sun"></i>'
+
+                : '<i class="fa-solid fa-moon"></i>';
+
+        }
+
+
+        const savedTheme =
+            localStorage.getItem("a-cropper-theme");
+
+
+        if (savedTheme) {
+
+            document.documentElement.setAttribute(
+                "data-theme",
+                savedTheme
+            );
+
+        } else {
+
+            const prefersDark =
+                window.matchMedia &&
+                window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+
+
+            if (prefersDark) {
+
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    "dark"
+                );
+
+            }
+
+        }
+
+
+        updateThemeIcon();
+
+
+        themeToggle.addEventListener(
+            "click",
+            () => {
+
+                const current =
+                    document.documentElement
+                        .getAttribute("data-theme");
+
+
+                const newTheme =
+                    current === "dark"
+                        ? "light"
+                        : "dark";
+
+
+                document.documentElement.setAttribute(
+                    "data-theme",
+                    newTheme
+                );
+
+
+                localStorage.setItem(
+                    "a-cropper-theme",
+                    newTheme
+                );
+
+
+                updateThemeIcon();
+
+            }
+        );
+
+    </script>
+
+
+</body>
+</html>

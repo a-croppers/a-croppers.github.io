@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>A-Cropper — Free Image Cropper & Background Remover</title>
+<meta name="description" content="Crop images into circles, rectangles and rounded shapes. Remove backgrounds, make images transparent and export in custom pixel sizes for free.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Cropper.js -->
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+    rel="stylesheet"
+>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+>
+
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+    <a href="#" class="brand">
+        <img src="logo.png" alt="CropIcon Logo">
+        <span>A - <span>Cropper</span></span>
+    </a>
+
+    <div class="nav-actions">
+        <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <a href="#how-it-works" class="nav-link">How it Works</a>
+    </div>
+</header>
+
+
+<!-- ================= HERO ================= -->
+<main>
+
+    <section class="hero" id="home">
+
+        <div class="hero-badge">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Free Online Image Tool
+        </div>
+
+        <h1>
+            Crop, Shape & Transform
+            <span>Edit Background.</span>
+        </h1>
+
+        <p>
+            Create perfect circular photos, rounded icons, transparent images and
+            custom-sized graphics — directly in your browser.
+        </p>
+
+    </section>
+
+
+    <!-- ================= UPLOAD ================= -->
+    <section class="upload-section" id="uploadSection">
+
+        <div class="upload-box" id="dropZone">
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/png,image/jpeg,image/jpg,image/webp"
+                hidden
+            >
+
+            <div class="upload-icon">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+
+            <h2>Upload an Image</h2>
+
+            <p>
+                Drag & drop your image here or click to browse
+            </p>
+
+            <button class="primary-btn" id="browseBtn">
+                <i class="fa-solid fa-folder-open"></i>
+                Choose Image
+            </button>
+
+            <div class="upload-formats">
+                PNG &nbsp; • &nbsp; JPG &nbsp; • &nbsp; WEBP
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EDITOR ================= -->
+    <section class="editor-section hidden" id="editorSection">
+
+        <div class="editor-layout">
+
+            <!-- LEFT: CANVAS -->
+            <div class="canvas-card">
+
+                <div class="card-header">
+                    <h2>
+                        <i class="fa-solid fa-crop-simple"></i>
+                        Editor
+                    </h2>
+
+                    <button class="reset-btn" id="resetBtn">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        Reset
+                    </button>
+                </div>
+
+                <div class="image-workspace">
+
+                    <div class="image-container">
+                        <img id="editorImage" alt="Image editor">
+                    </div>
+
+                </div>
+
+                <div class="quick-actions">
+
+                    <button id="rotateLeft">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Rotate
+                    </button>
+
+                    <button id="flipHorizontal">
+                        <i class="fa-solid fa-right-left"></i>
+                        Flip
+                    </button>
+
+                    <button id="zoomIn">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </button>
+
+                    <button id="zoomOut">
+                        <i class="fa-solid fa-magnifying-glass-minus"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT: CONTROLS -->
+            <aside class="controls-panel">
+
+
+                <!-- SHAPE -->
+                <div class="control-card">
+
+                    <h3>
+                        <i class="fa-solid fa-shapes"></i>
+                        Crop Shape
+                    </h3>
+
+                    <div class="shape-grid">
+
+                        <button class="shape-btn active" data-shape="rectangle">
+                            <i class="fa-regular fa-square"></i>
+                            Rectangle
+                        </button>
+
+                        <button class="shape-btn" data-shape="square">
+                            <i class="fa-solid fa-square"></i>
+                            Square
+                        </button>
+
+                        <button class="shape-btn" data-shape="circle">
+                            <i class="fa-regular fa-circle"></i>
+                            Circle
+                        </button>
+
+                        <button class="shape-btn" data-shape="rounded">
+                            <i class="fa-solid fa-square"></i>
+                            Rounded
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CORNER ROUNDNESS -->
+                <div class="control-card" id="roundnessCard">
+
+                    <div class="control-title">
+                        <h3>
+                            <i class="fa-solid fa-border-all"></i>
+                            Corner Roundness
+                        </h3>
+
+                        <span id="radiusValue">20%</span>
+                    </div>
+
+                    <input
+                        type="range"
+                        id="radiusSlider"
+                        min="0"
+                        max="50"
+                        value="20"
+                    >
+
+                </div>
+
+
+                <!-- DIMENSIONS -->
+                <div class="control-card">
+
+                    <h3>
+                        <i class="fa-solid fa-maximize"></i>
+                        Output Size
+                    </h3>
+
+                    <div class="size-inputs">
+
+                        <div>
+                            <label>Width</label>
+                            <input type="number" id="outputWidth" value="512" min="1">
+                        </div>
+
+                        <button class="lock-btn active" id="aspectLock" title="Lock Aspect Ratio">
+                            <i class="fa-solid fa-link"></i>
+                        </button>
+
+                        <div>
+                            <label>Height</label>
+                            <input type="number" id="outputHeight" value="512" min="1">
+                        </div>
+
+                    </div>
+
+                    <div class="size-presets">
+
+                        <button data-size="128">128</button>
+                        <button data-size="256">256</button>
+                        <button data-size="512">512</button>
+                        <button data-size="1024">1024</button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BACKGROUND -->
+                <div class="control-card">
+
+                    <h3>
+                        <i class="fa-solid fa-palette"></i>
+                        Background
+                    </h3>
+
+                    <div class="background-options">
+
+                        <button class="bg-btn active" data-bg="transparent">
+                            <span class="checker"></span>
+                            Transparent
+                        </button>
+
+                        <button class="bg-btn" data-bg="#ffffff">
+                            <span class="color white"></span>
+                            White
+                        </button>
+
+                        <button class="bg-btn" data-bg="#000000">
+                            <span class="color black"></span>
+                            Black
+                        </button>
+
+                        <label class="custom-color">
+                            <input type="color" id="backgroundColor" value="#4f46e5">
+                            Custom
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= BACKGROUND REMOVAL ================= -->
+
+<div class="control-card ai-card">
+
+
+<div class="ai-title">
+    <div>
+        <h3>
+            <i class="fa-solid fa-eraser"></i>
+            Remove Background
+        </h3>
+
+        <p>Remove solid background colors from logos & images</p>
+    </div>
+
+    <span class="free-badge">FREE</span>
+</div>
+
+
+<!-- Background Color Picker -->
+<div class="color-removal-controls">
+
+    <label>
+        Background Color
+        <input
+            type="color"
+            id="removeColor"
+            value="#000000"
+        >
+    </label>
+
+    <button id="pickColorBtn" type="button">
+        <i class="fa-solid fa-eye-dropper"></i>
+        Pick from Image
+    </button>
+
+</div>
+
+
+<!-- Tolerance -->
+<div class="tolerance-control">
+
+    <div class="tolerance-label">
+        <span>Tolerance</span>
+        <strong id="toleranceValue">30</strong>
+    </div>
+
+    <input
+        type="range"
+        id="toleranceSlider"
+        min="0"
+        max="150"
+        value="30"
+    >
+
+</div>
+
+
+<button class="remove-bg-btn" id="removeBackground">
+    <i class="fa-solid fa-eraser"></i>
+    Remove Background Color
+</button>
+
+<small id="bgStatus"></small>
+
+
+</div>
+
+
+
+                <!-- EXPORT -->
+                <div class="control-card export-card">
+
+                    <h3>
+                        <i class="fa-solid fa-download"></i>
+                        Download
+                    </h3>
+
+                    <select id="formatSelect">
+                        <option value="png">PNG — Best Quality</option>
+                        <option value="jpeg">JPG — Smaller Size</option>
+                        <option value="webp">WEBP — Modern</option>
+                    </select>
+
+                    <button class="download-btn" id="downloadBtn">
+                        <i class="fa-solid fa-download"></i>
+                        Download Image
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+    <section class="features">
+
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Private</h3>
+            <p>Your images stay in your browser.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3>Fast</h3>
+            <p>Edit and download in seconds.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+            <h3>100% Free</h3>
+            <p>No account, watermark or limits.</p>
+        </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section class="how-section" id="how-it-works">
+
+        <div class="section-heading">
+            <span>HOW IT WORKS</span>
+            <h2>Create Your Perfect Image in Seconds</h2>
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+                <span>01</span>
+                <h3>Upload</h3>
+                <p>Choose any image from your device.</p>
+            </div>
+
+            <div class="step">
+                <span>02</span>
+                <h3>Edit</h3>
+                <p>Crop, resize, round corners or remove backgrounds.</p>
+            </div>
+
+            <div class="step">
+                <span>03</span>
+                <h3>Download</h3>
+                <p>Export your image in the perfect format.</p>
+            </div>
+
+            <div class="tutorial-below">
+    <a href="A-cropper.mp4" target="_blank" rel="noopener noreferrer">
+        <i class="fa-solid fa-arrow-right"></i>
+        Watch Tutorial (troublesome part)
+    </a>
+</div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<style>.tutorial-below {
+    text-align: center;
+    margin-top: 28px;
+}
+
+.tutorial-below a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 800;
+    transition: all 0.25s ease;
+}
+
+.tutorial-below a i {
+    font-size: 14px;
+    transition: transform 0.25s ease;
+}
+
+.tutorial-below a:hover {
+    color: var(--primary-dark);
+}
+
+.tutorial-below a:hover i {
+    transform: translateX(6px);
+}</style>
+
+<footer class="site-footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      
+      <p>Your trusted destination where you can edit, crop, crop your pictures ina ny design, play with the background, remove add background all for free.</p>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-column">
+      <h3>Legal</h3>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms & Conditions</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </div>
+
+    <!-- Social -->
+    <div class="footer-column">
+      <h3>Follow Us</h3>
+      <a href="https://instagram.com/appexiodev" target="_blank">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+
+      <a href="https://x.com/appexiodev" target="_blank">
+        <i class="fa-brands fa-x-twitter"></i> X (Twitter)
+      </a>
+      
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 A-Cropper. All rights reserved.</span>
+      
+      <span>Built by <strong><a href="website-name">
+      AppExio-Dev
+    </a> </strong>
+      </span>
+      
+    </div>
+
+  </footer>
+
+
+<!-- Cropper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+
+<script src="script.js"></script>
+
+<style>/* =========================
+   FOOTER
+========================= */
+
+.site-footer {
+  background: #0b0b0b;
+  color: white;
+  padding: 50px 8% 20px;
+  margin-top: 70px;
+  border-top: 1px solid #222;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 50px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-brand h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.footer-brand p {
+  color: #aaa;
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-column h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.footer-column a {
+  color: #aaa;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-column a:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.footer-column i {
+  width: 22px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #222;
+  margin-top: 35px;
+  padding-top: 20px;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 40px 25px 20px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+}
+    </style>
+
+</body>
+</html>
